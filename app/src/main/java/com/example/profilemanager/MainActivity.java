@@ -1,12 +1,9 @@
 package com.example.profilemanager;
 
-import static com.example.profilemanager.R.*;
-
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
-import android.os.Bundle;
+import android.net.Uri;import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -55,41 +52,37 @@ public class MainActivity extends AppCompatActivity {
                 public void onActivityResult(ActivityResult result) {
                     if (result.getResultCode() == Activity.RESULT_OK) {
                         Intent data = result.getData();
-                        ImageView avatarImage = (ImageView) findViewById(R.id.avatarImage);
+                        if (data != null) {
 
-                        String drawableName = "base";
-                        switch (data.getIntExtra("imageViewID", R.id.flag1)) {
-                            case R.id.flag1:
+                            ImageView avatarImage = findViewById(R.id.avatarImage);
+
+                            int selectedFlag = data.getIntExtra("imageID", -1);
+
+                            String drawableName = "base"; // fallback
+
+                            if (selectedFlag == R.id.flag1) {
                                 drawableName = "flag_ca";
-                                break;
-                            case R.id.flag2:
+                            } else if (selectedFlag == R.id.flag2) {
                                 drawableName = "flag_eg";
-                                break;
-                            case R.id.flag3:
+                            } else if (selectedFlag == R.id.flag3) {
                                 drawableName = "flag_fr";
-                                break;
-                            case R.id.flag4:
+                            } else if (selectedFlag == R.id.flag4) {
                                 drawableName = "flag_jp";
-                                break;
-                            case R.id.flag5:
+                            } else if (selectedFlag == R.id.flag5) {
                                 drawableName = "flag_kr";
-                                break;
-                            case R.id.flag6:
+                            } else if (selectedFlag == R.id.flag6) {
                                 drawableName = "flag_sp";
-                                break;
-                            case R.id.flag7:
+                            } else if (selectedFlag == R.id.flag7) {
                                 drawableName = "flag_tr";
-                                break;
-                            case R.id.flag8:
+                            } else if (selectedFlag == R.id.flag8) {
                                 drawableName = "flag_uk";
-                                break;
-                            case R.id.flag9:
+                            } else if (selectedFlag == R.id.flag9) {
                                 drawableName = "flag_us";
-                                break;
+                            }
 
+                            int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
+                            avatarImage.setImageResource(resID);
                         }
-                        int resID = getResources().getIdentifier(drawableName, "drawable", getPackageName());
-                        avatarImage.setImageResource(resID);
                     }
                 }
             }
